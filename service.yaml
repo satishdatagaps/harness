@@ -1,0 +1,24 @@
+service:
+    name: harness_datagaps
+    identifier: harnessdatagaps
+    serviceDefinition:
+        type: Kubernetes
+        spec:
+            manifests:
+                - manifest:
+                    identifier: dataops
+                    type: K8sManifest
+                    spec:
+                      store:
+                        type: Github
+                        spec:
+                            connectorRef: harnessgitconnector
+                            gitFetchType: Branch
+                            paths:
+                                - dataops-deployment.yaml
+                                - dataops-svc.yaml
+                            repoName: harness
+                            branch: master
+                        skipResourceVersioning: false
+                        enableDeclarativeRollback: false
+    gitOpsEnabled: false
